@@ -10,20 +10,20 @@ module.exports = {
 	isDevelopingAddon: () => true,
 
 	config(env, baseConfig) {
-		const workboxOptions = this.app.options.workbox || {};
+		let workboxOptions = this.app.options.workbox || {};
 		const emberCliWorkboxOptions = baseConfig['ember-cli-workbox'];
 		const options = emberCliWorkboxOptions || {};
 		const appOptions = this.app.options['ember-cli-workbox'] || {};
 		const projectName = baseConfig.APP && baseConfig.APP.name || 'app';
 
-		Object.assign(workboxOptions, {
+		workboxOptions = Object.assign({
 			swDest: 'sw.js',
 			globDirectory: './',
 			globPatterns: ['**/*.{json,css,js,png,svg,eot,ttf,woff,jpg,gif,ico,xml,html,txt}'],
 			skipWaiting: false,
 			clientsClaim: false,
 			cacheId: projectName
-		});
+		}, workboxOptions);
 
 		env = env || process.env.EMBER_ENV;
 
